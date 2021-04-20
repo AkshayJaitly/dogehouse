@@ -10,6 +10,7 @@ import { UserSummaryCard } from "../../ui/UserSummaryCard";
 import { CreateScheduleRoomModal } from "../scheduled-rooms/CreateScheduledRoomModal";
 import { EditProfileModal } from "../user/EditProfileModal";
 import { MinimizedRoomCardController } from "./MinimizedRoomCardController";
+import { CardBanner } from '../../ui/banner/CardBanner';
 
 interface ProfileBlockControllerProps {}
 

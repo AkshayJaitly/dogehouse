@@ -18,6 +18,7 @@ import { useMicIdStore } from "../webrtc/stores/useMicIdStore";
 import { HeaderController } from "../../modules/display/HeaderController";
 import isElectron from "is-electron";
 import { useDevices } from "../../shared-hooks/useDevices";
+import { CardBanner } from '../../ui/banner/CardBanner';
 
 interface VoiceSettingsProps {}
 
@@ -89,6 +90,9 @@ export const VoiceSettingsPage: PageComponent<VoiceSettingsProps> = () => {
               volume={volume}
               onVolume={(n) => set({ volume: n })}
             />
+          </div>
+          <div>
+            <CardBanner />
           </div>
           <MuteKeybind className={`mb-4`} />
           <PTTKeybind className={`mb-4`} />
