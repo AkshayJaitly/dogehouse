@@ -17,20 +17,22 @@ defmodule Broth.Routes.BotAuth do
   alias Onion.BotAuthRateLimit
   alias Beef.Users
 
+  @env Mix.env()
+
   post "/auth" do
     with %{"apiKey" => api_key} <- conn.body_params,
          {:ok, _} <- Ecto.UUID.cast(api_key) do
       key =
-        with :test <- Mix.env(),
+        with :test <- @env,
              {_, value} <-
-               Enum.find(conn.req_headers, fn {key, _} -> key == "rate-limit-key" end) do
+               :proplists.get_value("rate-limit-key", conn.req_headers, nil) do
           value
         else
           _ ->
-            to_string(:inet_parse.ntoa(conn.remote_ip))
+            IP.to_string(conn.remote_ip)
         end
 
-      max_attempts = if Mix.env() == :test, do: 5, else: 20
+      max_attempts = if @env == :test, do: 5, else: 20
 
       if (BotAuthRateLimit.get(key) || 0) > max_attempts do
         conn
