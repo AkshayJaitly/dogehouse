@@ -46,14 +46,16 @@ export const RoomPanelIconBar: React.FC<RoomPanelIconBarProps> = ({
             transition
             hover={!mute.isMuted}
             className={`mr-2 w-11 h-6.5 ${
-              !mute.isMuted ? `bg-accent hover:bg-accent-hover text-button` : ``
+              !mute.isMuted && !deaf?.isDeaf
+                ? `bg-accent hover:bg-accent-hover text-button`
+                : ``
             }`}
             color="800"
             title={t("components.bottomVoiceControl.toggleMuteMicBtn")}
             onClick={() => mute.onMute()}
             data-testid="mute"
           >
-            {mute.isMuted ? (
+            {mute.isMuted || deaf?.isDeaf ? (
               <SolidMicrophoneOff width="20" height="20" />
             ) : (
               <SolidMicrophone width="20" height="20" />
@@ -94,7 +96,7 @@ export const RoomPanelIconBar: React.FC<RoomPanelIconBarProps> = ({
         {screenType === "1-cols" || screenType === "fullscreen" ? (
           <BoxedIcon
             transition
-            className="mr-2"
+            className="mr-2 h-6.5 w-6.5"
             color="800"
             onClick={onToggleChat}
             data-testid="chat"
